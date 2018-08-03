@@ -1,7 +1,7 @@
 {
-  "name": "mern-template",
+  "name": "url shortener",
   "version": "1.0.0",
-  "description": "Blank template for MERN apps",
+  "description": "Url shortening API",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js --ignore public/",
