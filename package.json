@@ -2,6 +2,10 @@
   "name": "url shortener",
   "version": "1.0.0",
   "description": "Url shortening API",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willybeans/urlShort.git"
+  },
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js --ignore public/",
