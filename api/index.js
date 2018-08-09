@@ -1,4 +1,6 @@
 import express from 'express';
+import { MongoClient } from 'mongodb';
+import config, { nodeEnv } from '../config';
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,12 +10,14 @@ const dns = require('dns');
 const router = express.Router();
 const path = require('path');
 
-// require("dotenv").config({
-//   path: path.resolve(__dirname, '..', '.env'),
-// });
-require('dotenv').load();
+require("dotenv").config({
+  path: path.resolve(__dirname, '..', '.env'),
+});
+//require('dotenv').load();
 
-const db = process.env.MONGO_URI;
+const db = (nodeEnv === "development") ?
+process.env.DEV_URI : process.env.MONGO_URI;
+
 //helps keep env secret
 console.log("db:" + db);
 dns.lookup('www.google.com', (err, add, family) => {
