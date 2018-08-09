@@ -1,2 +1,41 @@
+$light-gray:  #e7f1f9
+$blue:        #338EDA
+$white:       #FFF
+$mid-gray:    #D8D8D8
+$spacing:     1.5rem
+$ui-height:   2rem
+
+@mixin border-radius($value)
+  @include border-top-radius($value)
+  @include border-bottom-radius($value)
+
 body
-  color: red
+  line-height: 1.5
+  background: #d7d7ff
+
+.container
+  position: relative
+  width: 600px
+  height: 400px
+  margin: 0 auto
+
+.form
+  font-size: 1rem
+.top
+  position: absolute
+  left: 0
+  top: 0
+  background: $light-gray
+  border-color: $mid-gray
+  border-style: solid
+  height: 50%
+  width: 100%
+.bottom
+  position: absolute
+  left: 0
+  top: 52%
+  background: $light-gray
+  border-color: $mid-gray
+  border-style: solid
+  height: 50%
+  width: 100%
