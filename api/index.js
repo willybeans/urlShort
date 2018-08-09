@@ -18,14 +18,6 @@ require("dotenv").config({
 const db = (nodeEnv === "development") ?
 process.env.DEV_URI : process.env.MONGO_URI;
 
-//helps keep env secret
-console.log("db:" + db);
-dns.lookup('www.google.com', (err, add, family) => {
-  console.log("dns: " + err);
-  console.log("dns: " + add);
-  console.log("dns: " + family);
-});
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
@@ -59,6 +51,12 @@ router.get("/hello", function (req, res) {
 app.post('/api/shorturl/new', function (req, res, next) {
   //first regex the url
   //second DNS to see if its real
+    // make me a promise b
+  dns.lookup('test', (err, add, family) => {
+    if (add === undefined) {
+      //set variable to notify false url
+    }
+  });
   //then run the sequence youve written
   findOrCreateUrl(req.body.url)
     .then(data => {
