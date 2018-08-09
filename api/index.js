@@ -29,14 +29,14 @@ dns.lookup('www.google.com', (err, add, family) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-// mongoose.connect(process.env.MONGO_URI,
-//    { useNewUrlParser: true })
-//    .then( (res) => {
-//      console.log('Connected to DB');
-//    }).catch((err) => {
-//      console.log('Connection failed');
-//      console.log(err);
-//    });
+mongoose.connect(db,
+   { useNewUrlParser: true })
+   .then( (res) => {
+     console.log('Connected to DB');
+   }).catch((err) => {
+     console.log('Connection failed');
+     console.log(err);
+   });
 
 const Schema = mongoose.Schema;
 const UrlSchema = new Schema({
