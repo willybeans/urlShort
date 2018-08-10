@@ -19,7 +19,15 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.url);
+    const test = {
+      url: this.state.url
+    };
+    axios.post('/api/hello',test)
+      .then(res => {
+        console.log("res: " + res);
+        console.log("res.data: " + res.data );
+      })
+      .catch(e => console.log(e));
   }
 
   handleClick = e => {
@@ -53,7 +61,7 @@ const FormField = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <label>
-        Name:
+        Insert Your Url:
         <input type="text" name="id" onChange={props.handleChange} />
       </label>
       <input type="submit" value="Submit" />
