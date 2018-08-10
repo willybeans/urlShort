@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -8,9 +9,20 @@ class App extends Component {
       shortUrl: 'Shortened Url'
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleClick(e){
+  handleChange = e => {
+    this.setState({url: e.target.value});
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.state.url);
+  }
+
+  handleClick = e => {
     e.preventDefault();
     alert('click');
     console.log('click;');
@@ -21,7 +33,10 @@ class App extends Component {
     return (
       <div className="container">
         <div className="form top">
-            <FormField />
+            <FormField
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
           </div>
           <div className="form bottom">
             <ShortenedOutput
@@ -36,10 +51,10 @@ class App extends Component {
 
 const FormField = (props) => {
   return (
-    <form>
+    <form onSubmit={props.handleSubmit}>
       <label>
         Name:
-        <input type="text" name="name" />
+        <input type="text" name="id" onChange={props.handleChange} />
       </label>
       <input type="submit" value="Submit" />
     </form>
