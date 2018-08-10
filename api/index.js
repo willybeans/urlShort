@@ -18,10 +18,6 @@ require("dotenv").config({
 const db = (nodeEnv === "development") ?
 process.env.DEV_URI : process.env.MONGO_URI;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
-
 mongoose.connect(db,
    { useNewUrlParser: true })
    .then( (res) => {
@@ -48,7 +44,7 @@ const Url = mongoose.model('Url', UrlSchema);
 // your first API endpoint...
 router.post("/hello", function (req, res) {
   console.log("post successful!: " + req);
-  console.log("req body: "  + req.body);
+  console.log("req body: "  + JSON.stringify(req.body));
   console.log("req object?: " + req[0]);
   res.send({greeting: "hi from api"});
 });

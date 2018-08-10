@@ -4,7 +4,13 @@ import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import express from 'express';
 
+const cors = require('cors');
+const bodyParser = require('body-parser')
 const server = express();
+
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(cors());
 
 server.use(sassMiddleware({
   src: path.join(__dirname, 'sass'),
