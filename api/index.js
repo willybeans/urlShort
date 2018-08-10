@@ -1,15 +1,15 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 import config, { nodeEnv } from '../config';
-const mongo = require('mongodb');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser')
-const app = express();
-const dns = require('dns');
-const router = express.Router();
-const path = require('path');
 
+const mongo = require('mongodb'),
+      mongoose = require('mongoose'),
+      app = express(),
+      dns = require('dns'),
+      router = express.Router(),
+      path = require('path');
+
+//import .env file for mongoDB URI
 require("dotenv").config({
   path: path.resolve(__dirname, '..', '.env'),
 });
@@ -18,6 +18,7 @@ require("dotenv").config({
 const db = (nodeEnv === "development") ?
 process.env.DEV_URI : process.env.MONGO_URI;
 
+mongoose.Promise = global.Promise;
 mongoose.connect(db,
    { useNewUrlParser: true })
    .then( (res) => {
@@ -49,18 +50,18 @@ router.post("/hello", function (req, res) {
   res.send({greeting: "hi from api"});
 });
 
-app.post('/shorturl/new', function (req, res, next) {
-  //first regex the url
-  //second DNS to see if its real
-    // make me a promise b
-  dns.lookup('test', (err, add, family) => {
-    if (add === undefined) {
-      //set variable to notify false url
-    }
-  });
-  //then run the sequence youve written
+router.post('/shorturl/new', function (req, res, next) {
+  let url = JSON.stringify(req.body.url);
+
+  // dns.lookup('test', (err, add, family) => {
+  //   if (add === undefined) {
+  //     //set variable to notify false url
+  //   }
+  // });
+
   findOrCreateUrl(req.body.url)
     .then(data => {
+      console.log("data: " + data);
         res.send({url: data})
     })
     .catch(err => console.error(err));

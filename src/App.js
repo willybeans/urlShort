@@ -22,10 +22,16 @@ class App extends Component {
     const test = {
       url: this.state.url
     };
-    axios.post('/api/hello',test)
+    axios.post('/api/shorturl/new',test)
       .then(res => {
-        console.log("res: " + res);
-        console.log("res.data: " + res.data );
+        var test = JSON.stringify(res);
+        var testdata = test.data;
+        console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
+        console.log("res.data " + JSON.stringify(res.config.data));//is this old data?
+        console.log("res.data.data " + JSON.stringify(res.config));
+        console.log("status: " + res.status);
+        console.log("status: " + JSON.stringify(res.status));
+
       })
       .catch(e => console.log(e));
   }
