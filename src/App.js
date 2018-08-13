@@ -27,11 +27,9 @@ class App extends Component {
         var test = JSON.stringify(res);
         var testdata = test.data;
         console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
-        console.log("res.data " + JSON.stringify(res.config.data));//is this old data?
-        console.log("res.data.data " + JSON.stringify(res.config));
-        console.log("status: " + res.status);
-        console.log("status: " + JSON.stringify(res.status));
-
+        console.log("res.data.shortName " + JSON.stringify(res.data.shortName)); //undefined with familiar
+        console.log("res.config.data " + JSON.stringify(res.config.data));//is this old data?
+        console.log("res.config " + JSON.stringify(res.config));
       })
       .catch(e => console.log(e));
   }
@@ -46,6 +44,7 @@ class App extends Component {
 
     return (
       <div className="container">
+        <div className="banner">URL Shortener</div>
         <div className="form top">
             <FormField
               handleChange={this.handleChange}
@@ -65,23 +64,30 @@ class App extends Component {
 
 const FormField = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <label>
-        Insert Your Url:
-        <input type="text" name="id" onChange={props.handleChange} />
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <div className="inner formField">
+      <form onSubmit={props.handleSubmit}>
+        <label>
+          Insert Your Url:
+          <input type="text" name="id" onChange={props.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   )
 }
 
 const ShortenedOutput = (props) => {
   return (
-    <div>
-      <div> {props.shortUrl} </div>
-      <button onClick={props.handleClick}>
-        Copy Link
-      </button>
+    <div className="inner copyLink row">
+      <div className="copyLink-left">
+      {props.shortUrl}
+      </div>
+
+      <div className="copyLink-right">
+        <button onClick={props.handleClick}>
+          Copy Link
+        </button>
+      </div>
     </div>
   )
 }

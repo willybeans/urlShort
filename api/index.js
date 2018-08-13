@@ -36,57 +36,55 @@ const UrlSchema = new Schema({
 });
 const Url = mongoose.model('Url', UrlSchema);
 
-// app.use('/public', express.static(process.cwd() + '/public'));
-//
-// app.get('/', function(req, res){
-//   res.sendFile(process.cwd() + '/views/index.ejs');
-// });
-//
-// your first API endpoint...
-router.post("/hello", function (req, res) {
-  console.log("post successful!: " + req);
-  console.log("req body: "  + JSON.stringify(req.body));
-  console.log("req object?: " + req[0]);
-  res.send({greeting: "hi from api"});
-});
-
 router.post('/shorturl/new', function (req, res, next) {
-  let url = JSON.stringify(req.body.url);
-
+  let urlName = JSON.stringify(req.body.url);
   // dns.lookup('test', (err, add, family) => {
   //   if (add === undefined) {
   //     //set variable to notify false url
   //   }
   // });
-
   findOrCreateUrl(req.body.url)
     .then(data => {
-      console.log("data: " + data);
+      console.log("data before send: " + data);
+      console.log("data.shortName before send: " + data.shortName);
         res.send({url: data})
     })
     .catch(err => console.error(err));
 });
 
-function findOrCreateUrl(url) {
-  return findUrlByName(url)
-    .then(data => data || findLastUrl())
-    .then( data => { createAndSaveUrl(data, url) });
+function findOrCreateUrl(urlName) {
+  return findUrlByName(urlName)
+    .then( data => {
+      if (data)
+        return data;
+      return findLastUrl()
+    })
+    .then( data => {
+      return createNewUrl(data.shortName, urlName);
+    });
 }
+
+// function findOrCreateUrl(urlName) {
+//   return findUrlByName(urlName)
+//     .then(data => data || findLastUrl())
+//     .then( data => { createAndSaveUrl(data, urlName) });
+// }
 
 function findUrlByName(urlName) {
   return Url.findOne({fullName: urlName});
 }
 
 function findLastUrl() {
-  return Url.find().limit(1).sort({$natural: -1});
+  console.log('findLAST fired');
+  //this query is being flattened from data['0']
+  return Url.find().limit(1).sort({$natural: -1})
+    .then(data => data && data.length && data[0]);
 }
 
-function createAndSaveUrl(data, url) {
-  let shortName;
-  if(data['0'] != undefined){
-    shortName = Number(data['0']['shortName']);
+function createNewUrl(shortName, urlName) {
+  if (shortName != undefined){
+    shortName = Number(shortName);
   }
-
   if (shortName === undefined) { //for first entry
     shortName = 0;
     console.log("data doesnt exist therefore shortname = " + shortName);
@@ -95,7 +93,7 @@ function createAndSaveUrl(data, url) {
     console.log("data does exist shortname = " + shortName);
   }
   const ourUrl = new Url({
-    fullName: url,
+    fullName: urlName,
     shortName: shortName
   });
   return ourUrl.save();
