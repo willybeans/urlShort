@@ -24,12 +24,20 @@ class App extends Component {
     };
     axios.post('/api/shorturl/new',test)
       .then(res => {
+        var shortName = res.data.shortName;
+        console.log('shortname : ' + shortName);
+        console.log(window.location.href);
+        console.log(Object.keys(res));
+        console.log('url : ' + res.data.url.shortName);
         var test = JSON.stringify(res);
         var testdata = test.data;
-        console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
-        console.log("res.data.shortName " + JSON.stringify(res.data.shortName)); //undefined with familiar
-        console.log("res.config.data " + JSON.stringify(res.config.data));//is this old data?
-        console.log("res.config " + JSON.stringify(res.config));
+        this.setState({
+          shortUrl: window.location.href + "api/" + res.data.url.shortName
+        });
+        // console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
+        // console.log("res.data.shortName " + JSON.stringify(res.data.shortName)); //undefined with familiar
+        // console.log("res.config.data " + JSON.stringify(res.config.data));//is this old data?
+        // console.log("res.config " + JSON.stringify(res.config));
       })
       .catch(e => console.log(e));
   }
@@ -80,7 +88,7 @@ const ShortenedOutput = (props) => {
   return (
     <div className="inner copyLink row">
       <div className="copyLink-left">
-      {props.shortUrl}
+      <a href={props.shortUrl}>{props.shortUrl}</a>
       </div>
 
       <div className="copyLink-right">

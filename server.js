@@ -1,8 +1,10 @@
 import config, { nodeEnv, logStars } from './config';
 import apiRouter from './api';
+//import apiRouter from './api/routes';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import express from 'express';
+import mongoose from 'mongoose';
 
 const cors = require('cors');
 const bodyParser = require('body-parser')
@@ -11,6 +13,25 @@ const server = express();
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(cors());
+
+require("dotenv").config({
+  path: path.resolve(__dirname, '.env'),
+});
+//require('dotenv').load();
+
+const db = (nodeEnv === "development") ?
+process.env.DEV_URI : process.env.MONGO_URI;
+
+mongoose.Promise = global.Promise;
+mongoose.connect(db,
+   { useNewUrlParser: true })
+   .then( (res) => {
+     console.log('Connected to DB');
+     console.log('DB: ' + db);
+   }).catch((err) => {
+     console.log('Connection failed');
+     console.log(err);
+   });
 
 server.use(sassMiddleware({
   src: path.join(__dirname, 'sass'),

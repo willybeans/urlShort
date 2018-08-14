@@ -32,7 +32,7 @@ mongoose.connect(db,
 const Schema = mongoose.Schema;
 const UrlSchema = new Schema({
   fullName: {type: String, required: true},
-  shortName: {type: Number}
+  shortName: {type: Number, required: true}
 });
 const Url = mongoose.model('Url', UrlSchema);
 
