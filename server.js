@@ -1,6 +1,5 @@
 import config, { nodeEnv, logStars } from './config';
-import apiRouter from './api';
-//import apiRouter from './api/routes';
+import apiRouter from './api/routes';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import express from 'express';
