@@ -19,10 +19,10 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const test = {
+    const userUrl = {
       url: this.state.url
     };
-    axios.post('/api/shorturl/new',test)
+    axios.post('/api/shorturl/new',userUrl)
       .then(res => {
         var shortName = res.data.shortName;
         console.log('shortname : ' + shortName);
@@ -54,17 +54,17 @@ class App extends Component {
       <div className="container">
         <div className="banner">URL Shortener</div>
         <div className="form top">
-            <FormField
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-            />
-          </div>
-          <div className="form bottom">
-            <ShortenedOutput
-              shortUrl={this.state.shortUrl}
-              handleClick={this.handleClick}
-            />
-         </div>
+          <FormField
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </div>
+        <div className="form bottom">
+          <ShortenedOutput
+            shortUrl={this.state.shortUrl}
+            handleClick={this.handleClick}
+          />
+        </div>
       </div>
     )
   }
