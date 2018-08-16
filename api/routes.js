@@ -10,7 +10,7 @@ router.post('/shorturl/new', function (req, res, next) {
     .then(data => {
       console.log("data before send: " + data);
       console.log("data.shortName before send: " + data.shortName);
-        res.send({url: data})
+      res.send({url: data})
     })
     .catch(err => console.error(err));
 });

@@ -8,15 +8,15 @@ const UrlSchema = new Schema({
   },
   shortName: {
     type: Number,
-     required: true
-   }
+    required: true
+  }
 });
 
-let model
+let model;
 try {
-	model = mongoose.model('Url')
+  model = mongoose.model('Url');
 } catch (error) {
-	model = mongoose.model('Url', UrlSchema);
+  model = mongoose.model('Url', UrlSchema);
 }
 
 module.exports = model;

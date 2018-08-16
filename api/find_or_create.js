@@ -8,13 +8,13 @@ module.exports = function findOrCreateUrl(urlName) {
         return data;
       }
       return findLastUrl().then( data => {
-      return createNewUrl(data, urlName);
-    })
+        return createNewUrl(data, urlName);
+      });
     });
-}
+};
 
 function findUrlByName(urlName) {
-  console.log("findurlbyname fired");
+  console.log('findurlbyname fired');
   return Url.findOne({fullName: urlName});
 }
 
@@ -36,15 +36,15 @@ function createNewUrl(data, urlName) {
   }
   if (shortName === undefined) { //for first entry
     shortName = 0;
-    console.log("data doesnt exist therefore shortname = " + shortName);
+    console.log('data doesnt exist therefore shortname = ' + shortName);
   } else { //for everything after first entry
     shortName++;
-    console.log("data does exist shortname = " + shortName);
+    console.log('data does exist shortname = ' + shortName);
   }
   const ourUrl = new Url({
     fullName: urlName,
     shortName: shortName
   });
-  console.log("saving to database");
+  console.log('saving to database');
   return ourUrl.save();
-};
+}

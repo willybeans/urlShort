@@ -32,7 +32,7 @@ class App extends Component {
         var test = JSON.stringify(res);
         var testdata = test.data;
         this.setState({
-          shortUrl: window.location.href + "api/" + res.data.url.shortName
+          shortUrl: window.location.href + 'api/' + res.data.url.shortName
         });
         // console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
         // console.log("res.data.shortName " + JSON.stringify(res.data.shortName)); //undefined with familiar
@@ -66,9 +66,9 @@ class App extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
-};
+}
 
 const FormField = (props) => {
   return (
@@ -81,14 +81,14 @@ const FormField = (props) => {
         <input type="submit" value="Submit" />
       </form>
     </div>
-  )
-}
+  );
+};
 
 const ShortenedOutput = (props) => {
   return (
     <div className="inner copyLink row">
       <div className="copyLink-left">
-      <a href={props.shortUrl}>{props.shortUrl}</a>
+        <a href={props.shortUrl}>{props.shortUrl}</a>
       </div>
 
       <div className="copyLink-right">
@@ -97,7 +97,7 @@ const ShortenedOutput = (props) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
