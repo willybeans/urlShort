@@ -24,13 +24,6 @@ class App extends Component {
     };
     axios.post('/api/shorturl/new',userUrl)
       .then(res => {
-        var shortName = res.data.shortName;
-        console.log('shortname : ' + shortName);
-        console.log(window.location.href);
-        console.log(Object.keys(res));
-        console.log('url : ' + res.data.url.shortName);
-        var test = JSON.stringify(res);
-        var testdata = test.data;
         this.setState({
           shortUrl: window.location.href + 'api/' + res.data.url.shortName
         });
