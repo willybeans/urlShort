@@ -1,10 +1,14 @@
 const Url = require('./models');
 
-module.exports = function findOrCreateUrl(urlName) {
+exports.findUrl = function (shortUrlName) {
+  console.log('find url fired: ' + shortUrlName);
+  return Url.findOne({shortName: Number(shortUrlName)});
+};
+
+exports.findOrCreateUrl = function findOrCreateUrl(urlName) {
   return findUrlByName(urlName)
     .then( data => {
       if (data) {
-        console.log(data);
         return data;
       }
       return findLastUrl().then( data => {
@@ -14,12 +18,10 @@ module.exports = function findOrCreateUrl(urlName) {
 };
 
 function findUrlByName(urlName) {
-  console.log('findurlbyname fired');
   return Url.findOne({fullName: urlName});
 }
 
 function findLastUrl() {
-  console.log('findLAST fired');
   //this query is being flattened from data['0']
   return Url.find().limit(1).sort({$natural: -1})
     .then(data => data && data.length && data[0]);
@@ -28,7 +30,6 @@ function findLastUrl() {
 function createNewUrl(data, urlName) {
   let shortName = data.shortName;
   if(data.fullName === urlName){
-    console.log('this should never fire now');
     return data;
   }
   if (shortName != undefined){
