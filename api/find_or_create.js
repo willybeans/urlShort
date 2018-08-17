@@ -1,7 +1,6 @@
 const Url = require('./models');
 
 exports.findUrl = function (shortUrlName) {
-  console.log('find url fired: ' + shortUrlName);
   return Url.findOne({shortName: Number(shortUrlName)});
 };
 

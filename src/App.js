@@ -32,16 +32,17 @@ class App extends Component {
         this.setState({
           shortUrl: window.location.href + 'api/' + res.data.url.shortName
         });
-        // console.log("res.data " + JSON.stringify(res.data)); //undefined with familiar
-        // console.log("res.data.shortName " + JSON.stringify(res.data.shortName)); //undefined with familiar
-        // console.log("res.config.data " + JSON.stringify(res.config.data));//is this old data?
-        // console.log("res.config " + JSON.stringify(res.config));
       })
       .catch(e => console.log(e));
   }
 
   handleClick = () => {
     this.setState({copied: true});
+    setTimeout( () => {
+      this.setState({
+        copied: false
+      });
+    }, 5000);
   }
 
   render() {
