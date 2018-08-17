@@ -19,8 +19,11 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    let trimUrl = /(http)?s?:?(\/?\/?)?(www\.)?(.*)/;
+    let splitUrlBody = this.state.url.split(trimUrl);
+
     const userUrl = {
-      url: this.state.url
+      url: splitUrlBody[4]
     };
     axios.post('/api/shorturl/new',userUrl)
       .then(res => {
