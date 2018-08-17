@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       url: '',
-      shortUrl: 'Shortened Url'
+      shortUrl: 'Shortened Url',
+      copied: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -38,10 +40,8 @@ class App extends Component {
       .catch(e => console.log(e));
   }
 
-  handleClick = e => {
-    e.preventDefault();
-    alert('click');
-    console.log('click;');
+  handleClick = () => {
+    this.setState({copied: true});
   }
 
   render() {
@@ -59,6 +59,7 @@ class App extends Component {
           <ShortenedOutput
             shortUrl={this.state.shortUrl}
             handleClick={this.handleClick}
+            copied={this.state.copied}
           />
         </div>
       </div>
@@ -88,9 +89,11 @@ const ShortenedOutput = (props) => {
       </div>
 
       <div className="copyLink-right">
-        <button onClick={props.handleClick}>
-          Copy Link
-        </button>
+        <CopyToClipboard text={props.shortUrl}
+          onCopy={props.handleClick}>
+          <button>Copy to clipboard with button</button>
+        </CopyToClipboard>
+        {props.copied ? <div style={{color:'red'}}>Copied</div>:null}
       </div>
     </div>
   );
