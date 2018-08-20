@@ -8,9 +8,10 @@ class App extends Component {
     this.state = {
       url: '',
       shortUrl: 'Shortened Url',
-      copied: false
+      copied: false,
+      displayBottom: false
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickCopy = this.handleClickCopy.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -32,51 +33,55 @@ class App extends Component {
         this.setState({
           shortUrl: window.location.href + 'api/' + res.data.url.shortName
         });
+        this.setState({
+          displayBottom: true
+        });
       })
       .catch(e => console.log(e));
   }
 
-  handleClick = () => {
+  handleClickCopy = () => {
     this.setState({copied: true});
     setTimeout( () => {
-      this.setState({
-        copied: false
-      });
+      this.setState({copied: false});
     }, 5000);
   }
 
   render() {
 
     return (
-      <div className="container">
-        <div className="banner">URL Shortener</div>
-        <div className="form top">
+      <div className="container-fluid text-center justify-content-center">
+        <div className="banner"><h1>URL Shortener</h1></div>
+        <div className="row top justify-content-center">
           <FormField
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
           />
         </div>
-        <div className="form bottom">
-          <ShortenedOutput
-            shortUrl={this.state.shortUrl}
-            handleClick={this.handleClick}
-            copied={this.state.copied}
-          />
+        <div className="row bottom justify-content-center">
+          {
+            this.state.displayBottom ?
+              <ShortenedOutput
+                shortUrl={this.state.shortUrl}
+                handleClickCopy={this.handleClickCopy}
+                copied={this.state.copied}
+              />
+              : null
+          }
         </div>
       </div>
+
     );
   }
 }
 
 const FormField = (props) => {
   return (
-    <div className="inner formField">
+    <div className="form-group inner formField">
       <form onSubmit={props.handleSubmit}>
-        <label>
-          Insert Your Url:
-          <input type="text" name="id" onChange={props.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
+        <label className="insertFormText">  Insert Your Url:  </label>
+        <input type="text" name="id" onChange={props.handleChange} />
+        <input className="btn btn-info" type="submit" value="Submit" />
       </form>
     </div>
   );
@@ -84,15 +89,17 @@ const FormField = (props) => {
 
 const ShortenedOutput = (props) => {
   return (
-    <div className="inner copyLink row">
-      <div className="copyLink-left">
-        <a href={props.shortUrl}>{props.shortUrl}</a>
+    <div className="row">
+      <div className="col formp-group inner copyLink ">
+        <div className="copyLink-left">
+          <a href={props.shortUrl}>{props.shortUrl}</a>
+        </div>
       </div>
 
-      <div className="copyLink-right">
+      <div className="col copyLink-right">
         <CopyToClipboard text={props.shortUrl}
-          onCopy={props.handleClick}>
-          <button>Copy to clipboard with button</button>
+          onCopy={props.handleClickCopy}>
+          <button className="btn btn-info">Copy</button>
         </CopyToClipboard>
         {props.copied ? <div style={{color:'red'}}>Copied</div>:null}
       </div>

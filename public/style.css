@@ -1,56 +1,5 @@
 body {
-  line-height: 1.5;
-  background: #d7d7ff; }
+  margin-top: 40px; }
 
-.container {
-  position: relative;
-  width: 600px;
-  height: 400px;
-  margin: 0 auto; }
-
-.form {
-  font-size: 1rem; }
-
-.banner {
-  position: asbsolute;
-  left: 0;
-  top: 0;
-  height: 25%;
-  width: 100%;
-  font-size: 3em;
-  text-align: center; }
-
-.top {
-  position: absolute;
-  left: 0;
-  top: % 50;
-  background: #e7f1f9;
-  border-color: #D8D8D8;
-  border-style: solid;
-  height: 25%;
-  width: 100%; }
-
-.bottom {
-  position: absolute;
-  left: 0;
-  top: 52%;
-  background: #e7f1f9;
-  border-color: #D8D8D8;
-  border-style: solid;
-  height: 25%;
-  width: 100%; }
-
-.inner {
-  position: absolute;
-  left: 25%;
-  top: 50%;
-  height: 25%;
-  width: 50%; }
-
-.copyLink-left {
-  position: absolute;
-  left: 0; }
-
-.copyLink-right {
-  position: absolute;
-  right: 0; }
+.insertFormText {
+  margin: 5px; }
