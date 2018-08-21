@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       url: '',
-      shortUrl: 'Shortened Url',
+      shortUrl: '',
       copied: false,
       displayBottom: false
     };
@@ -22,6 +22,7 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
     let trimUrl = /(http)?s?:?(\/?\/?)?(www\.)?(.*)/;
     let splitUrlBody = this.state.url.split(trimUrl);
 
@@ -30,6 +31,11 @@ class App extends Component {
     };
     axios.post('/api/shorturl/new',userUrl)
       .then(res => {
+        console.log("res: " + res);
+
+        if(res === error) {
+          console.log("error: " + res);
+        }
         this.setState({
           shortUrl: window.location.href + 'api/' + res.data.url.shortName
         });
@@ -79,7 +85,7 @@ const FormField = (props) => {
   return (
     <div className="form-group inner formField">
       <form onSubmit={props.handleSubmit}>
-        <label className="insertFormText">  Insert Your Url:  </label>
+        <label className="mr-3">Insert Your Url:</label>
         <input type="text" name="id" onChange={props.handleChange} />
         <input className="btn btn-info" type="submit" value="Submit" />
       </form>

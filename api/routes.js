@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const find_or_create = require('./find_or_create')
+const dns = require('dns');
 
 router.get('/:shortUrl', function (req, res, next) {
+
   find_or_create.findUrl(req.params.shortUrl)
     .then(data => {
       try {
@@ -27,12 +29,19 @@ router.get('/:shortUrl', function (req, res, next) {
 
 
 router.post('/shorturl/new', function (req, res, next) {
+  dns.resolve(req.body.url, (error, addresses) => {
+  	if (error) {
+  		console.log('meowrror');
+      return error;
+  	} else {
+      find_or_create.findOrCreateUrl(req.body.url)
+        .then(data => {
+          res.send({url: data});
+        })
+        .catch(err => console.error(err));
+    }
+  });
 
-  find_or_create.findOrCreateUrl(req.body.url)
-    .then(data => {
-      res.send({url: data});
-    })
-    .catch(err => console.error(err));
 });
 
 
