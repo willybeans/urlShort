@@ -21,7 +21,7 @@ function findUrlByName(urlName) {
 }
 
 function findLastUrl() {
-  //this query is being flattened from data['0']
+  //this query is being flattened from data['0'] before return
   return Url.find().limit(1).sort({$natural: -1})
     .then(data => data && data.length && data[0]);
 }

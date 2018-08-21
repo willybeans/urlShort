@@ -31,10 +31,15 @@ class App extends Component {
     };
     axios.post('/api/shorturl/new',userUrl)
       .then(res => {
-        console.log("res: " + res);
+        console.log("res: " + Object.keys(res.data.url));
+        console.log("res: " + res.data.url.code);
+        console.log("res: " + res.data.url.errno);
+        console.log("res: " + res.data.url.syscall);
+        console.log("res: " + res.data.url.hostname);
 
-        if(res === error) {
-          console.log("error: " + res);
+
+        if(res.data.url.errno === 'ENOTFOUND') {
+          alert("error: " + res.data.url.hostname + " is not responsive");
         }
         this.setState({
           shortUrl: window.location.href + 'api/' + res.data.url.shortName

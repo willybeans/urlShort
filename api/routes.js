@@ -27,20 +27,29 @@ router.get('/:shortUrl', function (req, res, next) {
 
 });
 
+function testfunc(url){
+  return new Promise((resolve, reject) => {
+    dns.resolve(url, (error, addresses) => {
+      if (error) {
+        reject (error);
+      }
+      resolve(addresses);
+    });
+  })
+}
 
 router.post('/shorturl/new', function (req, res, next) {
-  dns.resolve(req.body.url, (error, addresses) => {
-  	if (error) {
-  		console.log('meowrror');
-      return error;
-  	} else {
-      find_or_create.findOrCreateUrl(req.body.url)
-        .then(data => {
-          res.send({url: data});
-        })
-        .catch(err => console.error(err));
-    }
-  });
+  testfunc(req.body.url)
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => res.send({url: err}));
+  //   find_or_create.findOrCreateUrl(req.body.url)
+  //     .then(data => {
+  //       res.send({url: data});
+  //     })
+  //     .catch(err => res.send({url: err});
+  // }
 
 });
 
