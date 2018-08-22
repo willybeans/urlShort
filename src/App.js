@@ -25,26 +25,19 @@ class App extends Component {
 
     let trimUrl = /(http)?s?:?(\/?\/?)?(www\.)?(.*)/;
     let splitUrlBody = this.state.url.split(trimUrl);
-
     const userUrl = {
       url: splitUrlBody[4]
     };
     axios.post('/api/shorturl/new',userUrl)
       .then(res => {
-        console.log("res: " + Object.keys(res.data.url));
-        console.log("res: " + res.data.url.code);
-        console.log("res: " + res.data.url.errno);
-        console.log("res: " + res.data.url.syscall);
-        console.log("res: " + res.data.url.hostname);
-
-
+        let newUrlState = '';
         if(res.data.url.errno === 'ENOTFOUND') {
-          alert("error: " + res.data.url.hostname + " is not responsive");
+          newUrlState = 'ERROR: ' + res.data.url.hostname + ' not responsive';
+        } else {
+          newUrlState = window.location.href + 'api/' + res.data.url.shortName;
         }
         this.setState({
-          shortUrl: window.location.href + 'api/' + res.data.url.shortName
-        });
-        this.setState({
+          shortUrl: newUrlState,
           displayBottom: true
         });
       })

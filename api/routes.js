@@ -41,15 +41,14 @@ function testfunc(url){
 router.post('/shorturl/new', function (req, res, next) {
   testfunc(req.body.url)
     .then(data => {
-      console.log(data)
+      if(data) {
+        find_or_create.findOrCreateUrl(req.body.url)
+          .then(data => {
+            res.send({url: data});
+          });
+      }
     })
     .catch(err => res.send({url: err}));
-  //   find_or_create.findOrCreateUrl(req.body.url)
-  //     .then(data => {
-  //       res.send({url: data});
-  //     })
-  //     .catch(err => res.send({url: err});
-  // }
 
 });
 
