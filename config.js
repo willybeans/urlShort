@@ -1,6 +1,6 @@
 const env = process.env;
 
-export const nodeEnv = env.NODE_ENV || 'development'
+export const nodeEnv = env.MONGO_URI || 'development'
 
 export const logStars = function(message){
 	console.info('******');
