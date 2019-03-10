@@ -12,17 +12,21 @@
     "build": "cross-env NODE_ENV=production nodemon --exec babel-node server.js --ignore public/",
     "w-start": "webpack --mode development",
     "w-build": "webpack --mode production",
-    "dev": "webpack -wd"
+    "dev": "webpack -wd",
+    "test": "mocha --reporter spec testSetup.js \"src/*spec.js\""
   },
   "author": "Will Wedmedyk",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "jest": "^24.0.0",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.6",
     "node-sass-middleware": "^0.11.0",
@@ -38,9 +42,15 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "eslint": "^5.3.0",
     "eslint-plugin-react": "^7.10.0",
+    "expect": "^24.3.1",
+    "jsdom": "^9.11.0",
+    "mocha": "^6.0.2",
     "nodemon": "^1.17.5",
+    "react-addons-test-utils": "^15.6.2",
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.8"
   }
