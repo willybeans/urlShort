@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+//import { CopyToClipboard } from 'react-copy-to-clipboard';
+import FormField from './components/FormField';
+import ShortenedOutput from './components/ShortenedOutput';
 
 class App extends Component {
   constructor(props) {
@@ -79,36 +82,11 @@ class App extends Component {
   }
 }
 
-const FormField = (props) => {
-  return (
-    <div className="form-group inner formField">
-      <form onSubmit={props.handleSubmit}>
-        <label className="mr-3">Insert Your Url:</label>
-        <input type="text" name="id" onChange={props.handleChange} />
-        <input className="btn btn-info" type="submit" value="Submit" />
-      </form>
-    </div>
-  );
-};
-
-const ShortenedOutput = (props) => {
-  return (
-    <div className="row">
-      <div className="col formp-group inner copyLink ">
-        <div className="copyLink-left">
-          <a href={props.shortUrl}>{props.shortUrl}</a>
-        </div>
-      </div>
-
-      <div className="col copyLink-right">
-        <CopyToClipboard text={props.shortUrl}
-          onCopy={props.handleClickCopy}>
-          <button className="btn btn-info">Copy</button>
-        </CopyToClipboard>
-        {props.copied ? <div style={{color:'red'}}>Copied</div>:null}
-      </div>
-    </div>
-  );
-};
+App.propTypes = {
+  url: PropTypes.string,
+  shortUrl: PropTypes.string,
+  copied: PropTypes.bool,
+  displayBottom: PropTypes.bool
+}
 
 export default App;
