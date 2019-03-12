@@ -54,7 +54,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className="container-fluid text-center justify-content-center">
+      <div className="MainApp container-fluid text-center justify-content-center">
         <div className="banner"><h1>URL Shortener</h1></div>
         <div className="row top justify-content-center">
           <FormField
