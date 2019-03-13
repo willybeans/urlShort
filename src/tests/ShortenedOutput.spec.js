@@ -8,16 +8,30 @@ import ShortenedOutput from '../components/ShortenedOutput'
 
 configure({ adapter: new Adapter() });
 
-const wrapper = shallow(<ShortenedOutput />)
+const props = {
+  shortUrl: 'example.url',
+  handleClickCopy: function() {
+    this.setState({copied: true});
+    setTimeout( () => {
+      this.setState({copied: false});
+    }, 5000);
+  },
+  copied: false
+}
+
+const wrapper = shallow(<ShortenedOutput props={props} />)
 describe('Shortened Output Component', () => {
-  it('should have a class named ShortenedOutput', function() {
-    const wrapper = shallow(<ShortenedOutput />)
+  const wrapper = shallow(<ShortenedOutput />)
+
+  it('Component Wrapper should have a class .ShortenedOutput', function() {
     expect(wrapper.is('.ShortenedOutput')).to.equal(true);
   })
-  // it('renders h1', () => {
-  //   expect(wrapper.find('h1').text()).to.equal('Hello World')
-  // })
-  // it('renders p', () => {
-  //   expect(wrapper.find('p').text()).to.equal('Welcome to my world')
-  // })
+  it('Wrapper should contain 2 children', function(){
+    expect(wrapper.children()).to.have.lengthOf(2);
+  })
+  it('Component should have a button ', () => {
+    expect(wrapper.exists('button')).to.equal(true);
+  })
+
+
 })

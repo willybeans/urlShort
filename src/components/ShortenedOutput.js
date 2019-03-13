@@ -18,6 +18,7 @@ const ShortenedOutput = (props) => {
         </CopyToClipboard>
         {props.copied ? <div style={{color:'red'}}>Copied</div>:null}
       </div>
+      
     </div>
   );
 };
